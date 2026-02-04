@@ -1,47 +1,40 @@
-// components/HeroSection.jsx
-
-import sore from '../assets/images/sore.jpg'
-import jumbo from '../assets/images/jumbo.jpg'
-import mensRea from '../assets/images/mens-rea.jpg'
-import ibuAyah from '../assets/images/ibu-ayah.jpg'
-import theGreatFlood from '../assets/images/the-great-flood.jpg'
-
+// src/components/HeroSection.jsx
 
 const posters = [
-  sore,
-  jumbo,
-  mensRea,
-  ibuAyah,
-  theGreatFlood,
-  sore,
-  jumbo,
-  mensRea,
-  ibuAyah,
-  theGreatFlood,
-  sore,
-  jumbo,
-  mensRea,
-  ibuAyah,
-  theGreatFlood,
-  sore,
-  jumbo,
-  mensRea,
-  ibuAyah,
-  theGreatFlood,
-  sore,
-  jumbo,
-  mensRea,
-  ibuAyah,
-]
+  'https://via.placeholder.com/300x450?text=Sore',
+  'https://via.placeholder.com/300x450?text=Jumbo',
+  'https://via.placeholder.com/300x450?text=Mens+Rea',
+  'https://via.placeholder.com/300x450?text=Ibu+Ayah',
+  'https://via.placeholder.com/300x450?text=The+Great+Flood',
+  'https://via.placeholder.com/300x450?text=Sore',
+  'https://via.placeholder.com/300x450?text=Jumbo',
+  'https://via.placeholder.com/300x450?text=Mens+Rea',
+  'https://via.placeholder.com/300x450?text=Ibu+Ayah',
+  'https://via.placeholder.com/300x450?text=The+Great+Flood',
+  'https://via.placeholder.com/300x450?text=Sore',
+  'https://via.placeholder.com/300x450?text=Jumbo',
+  'https://via.placeholder.com/300x450?text=Mens+Rea',
+  'https://via.placeholder.com/300x450?text=Ibu+Ayah',
+  'https://via.placeholder.com/300x450?text=The+Great+Flood',
+  'https://via.placeholder.com/300x450?text=Sore',
+  'https://via.placeholder.com/300x450?text=Jumbo',
+  'https://via.placeholder.com/300x450?text=Mens+Rea',
+  'https://via.placeholder.com/300x450?text=Ibu+Ayah',
+  'https://via.placeholder.com/300x450?text=The+Great+Flood',
+  'https://via.placeholder.com/300x450?text=Sore',
+  'https://via.placeholder.com/300x450?text=Jumbo',
+  'https://via.placeholder.com/300x450?text=Mens+Rea',
+  'https://via.placeholder.com/300x450?text=Ibu+Ayah',
+];
 
 const HeroSection = () => {
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const email = e.target.email.value
+    e.preventDefault();
+    const email = e.target.email.value;
     if (email) {
-      alert(`Email terkirim: ${email}\nNanti akan dikirim ke backend.`)
+      alert(`Email terkirim: ${email}\nNanti akan dikirim ke backend.`);
     }
-  }
+  };
 
   return (
     <div className="relative h-[90vh] overflow-hidden">
@@ -101,7 +94,7 @@ const HeroSection = () => {
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-indigo-500 transform translate-y-1"></div>
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 to-red-500 transform translate-y-2"></div>
     </div>
-  )
-}
+  );
+};
 
-export default HeroSection
+export default HeroSection;
