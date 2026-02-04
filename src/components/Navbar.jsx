@@ -1,17 +1,25 @@
-// components/Navbar.jsx
-
-import { useState } from 'react'
+// src/components/Navbar.jsx
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getUser } from '../lib/auth';
 
 const Navbar = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = getUser();
+    setCurrentUser(user);
+  }, []);
 
   const handleSignIn = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     
-    // 🔜 GANTI INI SESUAI BACKEND-MU!
-    const API_URL = '/api/login' // contoh: 'http://localhost:8000/api/login'
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+    const API_URL = `${API_BASE_URL}/api/login`;
 
     try {
       const res = await fetch(API_URL, {
@@ -20,24 +28,25 @@ const Navbar = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
-      })
+      });
 
       if (res.ok) {
-        const data = await res.json()
-        // Simpan token atau redirect
-        localStorage.setItem('token', data.token)
-        alert('Login berhasil!')
-        setIsModalOpen(false)
-        // window.location.href = '/dashboard'
+        const data = await res.json();
+        localStorage.setItem('auth_token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        
+        setCurrentUser(data.user);
+        alert('Login berhasil!');
+        setIsModalOpen(false);
       } else {
-        const error = await res.json()
-        alert(`Login gagal: ${error.message || 'Cek email/password'}`)
+        const error = await res.json();
+        alert(`Login gagal: ${error.message || 'Cek email/password'}`);
       }
     } catch (err) {
-      console.error(err)
-      alert('Gagal menghubungi server. Cek koneksi atau backend.')
+      console.error(err);
+      alert('Gagal menghubungi server. Cek koneksi atau backend.');
     }
-  }
+  };
 
   return (
     <>
@@ -52,18 +61,31 @@ const Navbar = () => {
               <option value="id">Bahasa Indonesia</option>
               <option value="en">English</option>
             </select>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-red-700 hover:bg-red-800 px-4 py-1 rounded font-medium transition"
-            >
-              Masuk
-            </button>
+            
+            {currentUser ? (
+              <div className="flex items-center gap-2">
+                <span className="text-white">Halo, {currentUser.name}</span>
+                <button
+                  onClick={() => window.location.href = '/logout'}
+                  className="bg-red-700 hover:bg-red-800 px-3 py-1 rounded text-sm transition"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-red-700 hover:bg-red-800 px-4 py-1 rounded font-medium transition"
+              >
+                Masuk
+              </button>
+            )}
           </div>
         </div>
       </nav>
 
       {/* Modal Sign In */}
-      {isModalOpen && (
+      {isModalOpen && !currentUser && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
           <div className="bg-gray-900 rounded-lg w-full max-w-md p-6 relative">
             <button
@@ -105,7 +127,7 @@ const Navbar = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

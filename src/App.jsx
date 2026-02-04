@@ -7,6 +7,7 @@ import ReasonsSection from './components/ReasonsSection'
 import FilmDetail from './pages/FilmDetail'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Logout from './pages/Logout' // ← tambahkan ini
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/film/:id" element={<FilmDetail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/logout" element={<Logout />} /> {/* ← tambahkan ini */}
       </Routes>
     </BrowserRouter>
   )
